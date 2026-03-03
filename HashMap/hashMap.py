@@ -66,3 +66,4 @@ class hashMap:
     hashRes  = 0
     for c in keyStr:
       hashRes = (hashRes * 31 + ord(c)) % self.capacity
+    return hashRes
