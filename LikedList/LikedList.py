@@ -111,8 +111,3 @@ class LinkedList:
                     raise ValueError("Index out of bounds")
                 last = last.next
         return last.next
-    
-# 
-
-if __name__ == "__main__":
-    pass

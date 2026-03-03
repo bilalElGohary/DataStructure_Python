@@ -48,5 +48,3 @@ class Stack:
       current = current.next  
     return "[" + ", ".join(list) + "]"
       
-if __name__ == "__name__":
-  pass
