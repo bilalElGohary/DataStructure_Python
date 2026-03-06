@@ -31,7 +31,20 @@ class BST:
     
     # runtime:
     def search(self, key):
-        pass
+        current = self.root
+        while True:
+            if current is None or current.key == key:
+                return current
+            elif key < current.key:
+                if current.left is None:
+                    return None
+                else:
+                    current = current.left
+            else:
+                if current.right is None:
+                    return None
+                else:
+                    current = current.right
     
     # runtime:
     def delete(self, key):
