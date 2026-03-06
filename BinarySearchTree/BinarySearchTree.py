@@ -35,8 +35,35 @@ class BST:
     
     # runtime:
     def insert(self, key, value):
-        pass
-    
+        if self.root is None:
+            self.root = Node(key)
+            self.root.value = value
+        else:
+            current = self.root
+            while True:
+                if key < current.key:
+                    if current.left is None:
+                        current.left = Node(key)
+                        current.left.value = value
+                        current.left.parent = current
+                        break
+                    else:
+                        current = current.left
+                        
+                elif key > current.key:
+                    if current.right is None:
+                        current.right = Node(key)
+                        current.right.value = value
+                        current.right.parent = current
+                        break
+                    else:
+                        current = current.right
+                
+                else:
+                    current.value = value
+                    break
+
+                
     # runtime:
     def search(self, key):
         current = self.root
