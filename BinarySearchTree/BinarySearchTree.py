@@ -15,8 +15,16 @@ class BST:
     
     # runtime:
     def __contains__(self, key):
-        pass
-    
+        current = self.root
+        while current is not None:
+            if key < current.key:
+                current = current.left
+            elif key > current.key:
+                current = current.right
+            else:
+                return True
+        return False
+            
     # runtime:
     def __iter__(self):
         pass
