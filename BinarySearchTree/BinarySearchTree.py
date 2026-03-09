@@ -83,7 +83,10 @@ class BST:
     
     # runtime:
     def delete(self, key):
-        pass
+        node = self.search(key)
+        if node is None:
+            raise KeyError("Theres no node with this key.")
+        self._delete(node)
     
     # runtime:
     def traverse(self, order):
@@ -94,14 +97,61 @@ class BST:
         pass
     
     # helper methods
-    def _delete(self, key):
-        pass
-    
+    def _delete(self, node):
+        # On leaf nodes
+        if node.left is None and node.right is None:
+            if node.parent is None:
+                self.root = None
+            else:
+                if node.parent.left == node:
+                    node.parent.left = None
+                else:
+                    node.parent.right = None
+                node.parent = None
+                
+        # On one child node
+        elif node.left is None or node.right is None:
+            child = node.left if node.left is not None else node.right
+            if node.parent is None:
+                child.parent = None
+                self.root = child
+            else:
+                if node.parent.right == node:
+                    node.parent.right = child
+                else:
+                    node.parent.left = child
+                child.parent = node.parent
+            node.parent = node.left = node.right = None
+
+        # On two child node
+        else:
+            successor = self._successor(node)
+            node.key = successor.key
+            node.value = successor.value
+            self.delete(successor)
+            
     def _successor(self, node):
-        pass
+        if node is None:
+            raise ValueError("Can not find successor of None")
+        if node.right is None:
+            return None
+        else:
+            current = node.right
+            while current.left is not None:
+                current = current.left
+            return current
     
     def _predecessor(self, node):
-        pass
+        if node is None:
+            raise ValueError("Can not find predecessor of None")
+        if node.left is None:
+            return None
+        else:
+            current = node.left 
+            while current.right is not None:
+                current = current.right
+            return current
+
     
     def _inOrderTraverser(self):
         pass
