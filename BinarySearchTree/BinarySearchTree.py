@@ -170,11 +170,9 @@ class BST:
     
     def _postOrderTraverser(self, node):
         if node is not None:
-            yield (node.key, node.value)
             yield from self._postOrderTraverser(node.left)
             yield from self._postOrderTraverser(node.right)
+            yield (node.key, node.value)
 
-
-    
 if __name__ == "__main__":
     pass
