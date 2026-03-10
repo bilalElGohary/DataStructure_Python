@@ -13,7 +13,7 @@ class BST:
     def __init__(self):
         self.root = None
     
-    # runtime:
+    # runtime: O(n), O(log n), O(h)
     def __contains__(self, key):
         current = self.root
         while current is not None:
@@ -25,15 +25,15 @@ class BST:
                 return True
         return False
             
-    # runtime:
+    # runtime: O(n)
     def __iter__(self):
-        pass
+        yield from self._inOrderTraverser(self.root)
     
-    # runtime:
+    # runtime: O(n)
     def __repr__(self):
-        pass
+        return str(list(self._inOrderTraverser(self.root)))
     
-    # runtime:
+    # runtime: O(n), O(log n), O(h)
     def insert(self, key, value):
         if self.root is None:
             self.root = Node(key)
@@ -62,9 +62,8 @@ class BST:
                 else:
                     current.value = value
                     break
-
                 
-    # runtime:
+    # runtime: O(n), O(log n), O(h)
     def search(self, key):
         current = self.root
         while True:
@@ -81,21 +80,24 @@ class BST:
                 else:
                     current = current.right
     
-    # runtime:
+    # runtime: O(n), O(log n), O(h)
     def delete(self, key):
         node = self.search(key)
         if node is None:
             raise KeyError("Theres no node with this key.")
         self._delete(node)
     
-    # runtime:
+    # runtime: O(n)
     def traverse(self, order):
-        pass
-    
-    # runtime:
-    def isEmpty(self):
-        pass
-    
+        if order == "InOrder":
+            yield from self._inOrderTraverser(self.root)
+        elif order == "PreOrder":
+            yield from self._preOrderTraverser(self.root)
+        elif order == "PostOrder":
+            yield from self._postOrderTraverser(self.root)
+        else:
+            raise ValueError("Unknown order. ")
+        
     # helper methods
     def _delete(self, node):
         # On leaf nodes
@@ -152,15 +154,26 @@ class BST:
                 current = current.right
             return current
 
+
+    def _inOrderTraverser(self, node):
+        if node is not None:
+            yield from self._inOrderTraverser(node.left)
+            yield (node.key, node.value)
+            yield from self._inOrderTraverser(node.right)
     
-    def _inOrderTraverser(self):
-        pass
+    def _preOrderTraverser(self, node):
+        if node is not None:
+            yield (node.key, node.value)
+            yield from self._preOrderTraverser(node.left)
+            yield from self._preOrderTraverser(node.right)
+
     
-    def _preOrderTraverser(self):
-        pass
-    
-    def _postOrderTraverser(self):
-        pass
+    def _postOrderTraverser(self, node):
+        if node is not None:
+            yield (node.key, node.value)
+            yield from self._postOrderTraverser(node.left)
+            yield from self._postOrderTraverser(node.right)
+
 
     
 if __name__ == "__main__":
