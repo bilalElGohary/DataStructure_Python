@@ -44,7 +44,7 @@ class MinHeap:
   
   # helper methods
   def _parent(self, index):
-    return (index + 1) // 2 if index != 0 else None
+    return (index + 1) // 2 if index > 0 else None
   
   def _left(self, index):
     left = 2 * index + 1
@@ -64,20 +64,21 @@ class MinHeap:
       parent = self._parent(index)
   
   def _siftDown(self, index):
-    # sink
     while True:
       smallest = index
-      left = self._left
-      right = self._right
-      if left is not None and self.heap[left][0] < self.heap[smallest][0]:
+      left = self._left(index)  
+      right = self._right(index)  
+      
+      if left is not None and self.heap[left] < self.heap[smallest]:
         smallest = left
-      if right is not None and self.heap[right][0] < self.heap[smallest][0]:
+      if right is not None and self.heap[right] < self.heap[smallest]:
         smallest = right
-      if smallest == index:
+        
+      if smallest != index:
+        self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+        index = smallest
+      else:
         break
-    self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
-    index = smallest
-
     
 if __name__ == "__main__":
   pass
