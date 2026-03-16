@@ -7,7 +7,7 @@ class Trie:
   def __init__(self):
     self.root = Node()
   
-  # runtime: 
+  # runtime: O(m) - where m is len of the word
   def insert(self, word):
     current = self.root
     for c in word:
@@ -16,7 +16,7 @@ class Trie:
       current = current.children[c]
     current.isEndWord = True
   
-  # runtime: 
+  # runtime: O(m)
   def search(self, word):
     current = self.root
     for c in word:
@@ -25,11 +25,11 @@ class Trie:
         current = current.children[c]
     return current.isEndWord
   
-  # runtime: 
+  # runtime: O(m) 
   def delete(self, word):
     self._delete(self.root, word, 0)
   
-  # runtime: 
+  # runtime: O(m) 
   def hasPrefix(self, prefix):
     current = self.root
     for c in prefix:
@@ -39,7 +39,7 @@ class Trie:
     return True
     
 
-  # runtime: 
+  # runtime: O(m, k) - where m is prefix and k is total num of c
   def startWith(self, prefix):
     words = []
     current = self.root
@@ -55,7 +55,7 @@ class Trie:
     _dfs(current, list(prefix))
     return words
 
-  # runtime: 
+  # runtime: O(n)
   def listWord(self):
     words = []
     def _dfs(current, path):
@@ -86,4 +86,4 @@ class Trie:
     
 
 if __name__ == "__main__":
-  pass 
+pass
