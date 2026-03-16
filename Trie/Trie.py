@@ -4,8 +4,8 @@ class Node:
     self.isEndWord = False
   
 class Trie:
-  def __int__(self):
-    self.root = False
+  def __init__(self):
+    self.root = Node()
   
   # runtime: 
   def insert(self, word):
@@ -86,4 +86,4 @@ class Trie:
     
 
 if __name__ == "__main__":
-    pass
+  pass 
