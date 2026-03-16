@@ -8,32 +8,82 @@ class Trie:
     self.root = False
   
   # runtime: 
-  def __repr__(self):
-    pass
-
-  # runtime: 
   def insert(self, word):
-    pass
+    current = self.root
+    for c in word:
+      if c not in current.children:
+        current.children[c] = Node()
+      current = current.children[c]
+    current.isEndWord = True
   
   # runtime: 
   def search(self, word):
-    pass
+    current = self.root
+    for c in word:
+        if c not in current.children:
+            return False
+        current = current.children[c]
+    return current.isEndWord
   
   # runtime: 
   def delete(self, word):
-    pass
+    self._delete(self.root, word, 0)
   
   # runtime: 
   def hasPrefix(self, prefix):
-    pass
+    current = self.root
+    for c in prefix:
+        if c not in current.children:
+            return False
+        current = current.children[c]
+    return True
+    
 
   # runtime: 
   def startWith(self, prefix):
-    pass
+    words = []
+    current = self.root
+    for c in prefix:
+        if c not in current.children:
+            return words
+        current = current.children[c]
+    def _dfs(current, path):
+        if current.isEndWord:
+            words.append(''.join(path))
+        for c, child in current.children.items():
+            _dfs(child, path + [c])
+    _dfs(current, list(prefix))
+    return words
 
   # runtime: 
   def listWord(self):
-    pass
-  
+    words = []
+    def _dfs(current, path):
+        if current.isEndWord:
+            words.append(''.join(path))
+        for c, child in current.children.items():
+            _dfs(child, path + [c])
+    _dfs(self.root, [])
+    return words
+
+
+  # helper methods
+  def _delete(self, current, word, index):
+    if index == len(word):
+        if not current.isEndWord:
+            return False
+        current.isEndWord = False
+        return len(current.children) == 0
+    c = word[index]
+    node = current.children[c]
+    if node is None:
+        return False
+    delCurrent = self._delete(node, word, index+1)
+    if delCurrent:
+        del current.children[c]
+        return len(current.children) == 0 and not current.isEndWord
+    return False
+    
+
 if __name__ == "__main__":
-  pass
+    pass
