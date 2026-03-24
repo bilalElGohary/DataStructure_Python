@@ -42,6 +42,14 @@ class Graph:
     # runtime:
     def getEdges(self):
         pass
+    
+    # runtime: 
+    def DFS(self, start):
+        pass
+    
+    # runtime:
+    def BFS(self, start):
+        pass
 
 if __name__ == "__main__":
     pass
